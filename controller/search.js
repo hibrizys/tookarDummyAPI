@@ -15,6 +15,7 @@ const Tookar = {
       });
     });
   },
+  // SEE ALL DATA
   seeAllData: () => {
     return new Promise((resolve, reject) => {
       const query = `SELECT * FROM mRecsys`;
@@ -127,19 +128,19 @@ const addAll = async (req, res) => {
 };
 // ======================================= SEE ALL DATA =======================================
 const seeAll = async (req, res) => {
-    try {
-      const data = await Tookar.seeAllData();
-  
-      res.status(200).send({
-        error: false,
-        message: "success",
-        data: data,
-      });
-    } catch (err) {
-      console.error("Error retrieving data from the database:", err);
-      res.status(500).send({ error: true, message: "Internal Server Error" });
-    }
-  };
+  try {
+    const data = await Tookar.seeAllData();
+
+    res.status(200).send({
+      error: false,
+      message: "success",
+      data: data,
+    });
+  } catch (err) {
+    console.error("Error retrieving data from the database:", err);
+    res.status(500).send({ error: true, message: "Internal Server Error" });
+  }
+};
 // ======================================= POST =======================================
 
 // POST ID
@@ -340,5 +341,5 @@ module.exports = {
   getBarang,
   getKota,
   getID,
-  seeAll
+  seeAll,
 };
