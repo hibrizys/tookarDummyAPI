@@ -15,6 +15,18 @@ const Tookar = {
       });
     });
   },
+  seeAllData: () => {
+    return new Promise((resolve, reject) => {
+      const query = `SELECT * FROM mRecsys`;
+      sql.query(query, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  },
   // POST
   findByID: (Customer_ID) => {
     return new Promise((resolve, reject) => {
@@ -93,27 +105,41 @@ const Tookar = {
 };
 // ======================================= ADD ALL DATA =======================================
 const addAll = async (req, res) => {
-    const params = req.query;
-    const { Customer_ID, Kota, Barang } = params;
-  
+  const params = req.query;
+  const { Customer_ID, Kota, Barang } = params;
+
+  try {
+    await Tookar.addByAll(Customer_ID, Kota, Barang);
+
+    res.status(200).send({
+      error: false,
+      message: "success",
+      addedData: {
+        Customer_ID: Customer_ID,
+        Kota: Kota,
+        Barang: Barang,
+      },
+    });
+  } catch (err) {
+    console.error("Error adding data to the database:", err);
+    res.status(500).send({ error: true, message: "Internal Server Error" });
+  }
+};
+// ======================================= SEE ALL DATA =======================================
+const seeAll = async (req, res) => {
     try {
-      await Tookar.addByAll(Customer_ID, Kota, Barang);
+      const data = await Tookar.seeAllData();
   
       res.status(200).send({
         error: false,
         message: "success",
-        addedData: {
-          Customer_ID: Customer_ID,
-          Kota: Kota,
-          Barang: Barang,
-        },
+        data: data,
       });
     } catch (err) {
-      console.error("Error adding data to the database:", err);
+      console.error("Error retrieving data from the database:", err);
       res.status(500).send({ error: true, message: "Internal Server Error" });
     }
   };
-
 // ======================================= POST =======================================
 
 // POST ID
@@ -314,4 +340,5 @@ module.exports = {
   getBarang,
   getKota,
   getID,
+  seeAll
 };

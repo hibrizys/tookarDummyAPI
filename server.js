@@ -32,6 +32,10 @@ app.get('/', (req, res) => {
 });
 // ADD ALL DATA
 app.post('/api/add', userHandler.addAll);
+
+// SEE ALL DATA
+app.get('/api/allData', userHandler.seeAll);
+
 // POST
 app.post('/api/search/id', userHandler.searchID);
 app.post('/api/search/kota', userHandler.searchKota);
