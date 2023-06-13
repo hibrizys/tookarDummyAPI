@@ -2,7 +2,7 @@ const sql = require("../config/database");
 const util = require("util");
 
 const Tookar = {
-  // ADD ALL DATA
+  // ADD DATA
   addByAll: (Customer_ID, kota, barang) => {
     return new Promise((resolve, reject) => {
       const query = `INSERT INTO mRecsys (Customer_ID, Kota, Barang) VALUES ('${Customer_ID}', '${kota}', '${barang}')`;
@@ -28,6 +28,7 @@ const Tookar = {
       });
     });
   },
+
   // POST
   findByID: (Customer_ID) => {
     return new Promise((resolve, reject) => {
@@ -104,7 +105,7 @@ const Tookar = {
     });
   },
 };
-// ======================================= ADD ALL DATA =======================================
+// ======================================= ADD DATA =======================================
 const addAll = async (req, res) => {
   const params = req.query;
   const { Customer_ID, Kota, Barang } = params;
@@ -142,7 +143,6 @@ const seeAll = async (req, res) => {
   }
 };
 // ======================================= POST =======================================
-
 // POST ID
 const searchID = async (req, res) => {
   const params = req.body;
@@ -341,5 +341,5 @@ module.exports = {
   getBarang,
   getKota,
   getID,
-  seeAll,
+  seeAll
 };

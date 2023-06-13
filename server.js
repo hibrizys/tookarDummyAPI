@@ -3,7 +3,6 @@ const userHandler = require('./controller/search');
 
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const database = require('./config/database');
 
 const app = express();
 const port = 8080;
